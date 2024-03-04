@@ -1,10 +1,11 @@
 use std::process;
 pub mod benches{
     pub mod sha256;
+    pub mod for_loop;
 }
 
 use crate::benches::sha256::sha256_benchmarking;
-
+use crate::benches::for_loop::benchmark_for_loop;
 fn main() {
     let args: Vec<String> = std::env::args().collect();
 
@@ -14,14 +15,19 @@ fn main() {
         process::exit(1);
     }
     
-    let hash_type = &args[1];
-    let _size = args[2].parse::<usize>().unwrap();
+    let bench_type = &args[1];
+    let size = args[2].parse::<usize>().unwrap();
 
-    match hash_type.as_str() {
+    match bench_type.as_str() {
 
         "sha256" => {
             println!("Running sha256: ");
-            let _ = sha256_benchmarking();
+            let _ = sha256_benchmarking(size);
+        }
+
+        "emptyloop" => {
+            println!("Running Empty Loop: ");
+            let _ = benchmark_for_loop(size);
         }
 
         _ => {

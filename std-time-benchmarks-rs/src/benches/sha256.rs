@@ -1,8 +1,17 @@
 use sha2::{Sha256, Digest};
 use std::time::Instant;
-pub fn sha256_benchmarking() {
+use rand::Rng;
 
-    let data = b"Hello world!";
+// generate random data
+fn generate_random_bytes(size: usize) -> Vec<u8> {
+    let mut rng = rand::thread_rng();
+    let random_bytes: Vec<u8> = (0..size).map(|_| rng.gen()).collect();
+    random_bytes
+}
+
+pub fn sha256_benchmarking(n: usize) {
+
+    let data = generate_random_bytes(n);
 
     //start the time instance
     let start = Instant::now();

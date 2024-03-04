@@ -1,15 +1,7 @@
 extern crate test;
-use test::Bencher;
-
 use sha2::{Sha512, Digest};
 
-// bench: find the `BENCH_SIZE`
-// static BENCH_SIZE: usize = 20;
-
-pub fn sha512_benchmarking() {
-
-    let data = b"Hello world!";
-
+pub fn sha512(data: Vec<u8>) {
     let mut hasher = Sha512::new();
     hasher.update(data);
     hasher.update("String data");
@@ -21,14 +13,26 @@ pub fn sha512_benchmarking() {
 mod tests {
     use super::*;
     use test::Bencher;
+    use rand::Rng;
+
+    // generate random data
+    fn generate_random_bytes(size: usize) -> Vec<u8> {
+        let mut rng = rand::thread_rng();
+        let random_bytes: Vec<u8> = (0..size).map(|_| rng.gen()).collect();
+        random_bytes
+    }
 
     // function to benchmark must be annotated with `#[bench]`
     #[bench]
-    fn recursive_fibonacci(b: &mut Bencher) {
+    fn sha512_bench(b: &mut Bencher) {
+        let data = generate_random_bytes(1024);
         // exact code to benchmark must be passed as a closure to the iter
         // method of Bencher
+
+        // Bencher provides an iter method, which takes a closure. This closure contains the code we'd like to benchmark.
+        // Rust runs our benchmark a number of times, and then takes the average.
         b.iter(|| {
-            sha512_benchmarking()
+            sha512(data.clone())
         })
     }
 }
