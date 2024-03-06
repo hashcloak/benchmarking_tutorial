@@ -1,8 +1,9 @@
 pub mod sha256;
-pub mod sha2562;
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+pub mod sha256_iter;
 
-use sha256::benches2;
-use sha2562::benches;
+use sha256::sha256;
+use sha256_iter::sha256_iter;
 
-criterion_main!(benches, benches2);
+use criterion::criterion_main;
+
+criterion_main!(sha256, sha256_iter);
