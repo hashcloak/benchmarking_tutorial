@@ -10,6 +10,7 @@ pub fn generate_random_bytes(size: usize) -> Vec<u8> {
     random_bytes
 }
 
+// sha256 
 pub fn calculate_sha256(data: Vec<u8>) {
     let mut hasher = Sha256::new();
     hasher.update(data);
@@ -17,7 +18,8 @@ pub fn calculate_sha256(data: Vec<u8>) {
 
 }
 
-
+// criterion benchmark function takes Criterion as an argument which has a closure which takes the function which we want to benchmark
+// the bencher will run the function multiple time an calculates the data
 pub fn sha256_benchmark(c: &mut Criterion) {
 
     let data = black_box(generate_random_bytes(1024));

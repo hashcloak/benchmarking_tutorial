@@ -11,6 +11,8 @@ criterion = { version = "0.5.1", features = ["html_reports"] }
 sha2 = "0.10.8"
 rand = "0.8"
 
+# bench_main is the entry-point for the the criterion which looks for bench_main.rs file inside the benches/ folder
+# the deafult built-in rust benchmark must be disabled
 [[bench]]
 name = "bench_main"
 harness = false

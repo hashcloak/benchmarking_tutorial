@@ -1,6 +1,7 @@
 extern crate test;
 use sha2::{Sha512, Digest};
 
+// sha512 of rustCrypto
 pub fn sha512(data: Vec<u8>) {
     let mut hasher = Sha512::new();
     hasher.update(data);
